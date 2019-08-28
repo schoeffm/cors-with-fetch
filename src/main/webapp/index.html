@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+<rest-requester></rest-requester>
+
+<script type="module">
+    class RestRequester extends HTMLElement {
+        constructor() {
+            super();
+            this.root = this.attachShadow({mode: 'open'});
+        }
+
+        connectedCallback() {
+            customElements
+                .whenDefined('rest-requester')
+                .then(() => this.render());
+        }
+
+        render() {
+            this.root.innerHTML = `
+                <style type="text/css">
+                    :host {
+                        display: flex;
+                        flex-direction: column;
+                        min-width: 640px;
+                        max-width: 50%;
+                    }
+                    .url-input { display: flex; }
+                    .url-input > * + * { margin-left: 1rem; }
+                    textarea { font-family: monospace; min-width: 50%; margin-top: 1rem; }
+                    .output {
+                        font-family: monospace;
+                        background: lightgray;
+                        padding: 1rem;
+                        border: 1px solid darkgray;
+                        margin-top: 1rem;
+                    }
+                </style>
+                <div class="url-input">
+                    <label for="url">What should I request</label>
+                    <input id="url" type="text" size="50" value="http://localhost:8080/debugger/resources/ping"/>
+                    <input type="submit"/>
+                </div>
+                <textarea rows="5">
+{
+    "credentials": "include",
+    "headers": {"Content-Type": "application/json"}
+}
+                </textarea>
+                <div class="output"></div>
+            `;
+            this._$input = this.shadowRoot.querySelector('input#url');
+            this._$textarea = this.shadowRoot.querySelector('textarea');
+            this._$submit = this.shadowRoot.querySelector('[type=submit]');
+            this._$output = this.shadowRoot.querySelector('.output');
+            this._$submit.onclick = (e) => this._fetch(this._$input.value, this._$textarea.value);
+        }
+
+        _fetch(url, configs) {
+            fetch(url, JSON.parse(configs))
+                .then(response => response.json())
+                .then(data => this._$output.innerHTML = JSON.stringify(data))
+                .catch(err => console.log(err));
+        }
+    }
+
+    customElements.define('rest-requester', RestRequester);
+</script>
+</body>
+</html>
