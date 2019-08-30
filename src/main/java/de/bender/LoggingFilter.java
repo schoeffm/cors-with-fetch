@@ -1,4 +1,4 @@
-package com.bmw;
+package de.bender;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;

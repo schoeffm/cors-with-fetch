@@ -1,4 +1,4 @@
-package com.bmw.ping.boundary;
+package de.bender.ping.boundary;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -19,8 +19,7 @@ public class PingResource {
         final JsonObject build = Json.createObjectBuilder()
                 .add("id", 1)
                 .add("name", "FooBar")
-            .build();
+                .build();
         return Response.ok(build).build();
     }
-
 }

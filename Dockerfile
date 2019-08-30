@@ -1,2 +1,2 @@
 FROM airhacks/payara
-COPY ./target/debugger.war ${DEPLOYMENT_DIR}
+COPY ./target/cors.war ${DEPLOYMENT_DIR}

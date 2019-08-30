@@ -21,7 +21,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>debugger</finalName>
+        <finalName>cors</finalName>
     </build>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

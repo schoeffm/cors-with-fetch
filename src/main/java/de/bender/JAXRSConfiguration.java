@@ -1,4 +1,4 @@
-package com.bmw;
+package de.bender;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
